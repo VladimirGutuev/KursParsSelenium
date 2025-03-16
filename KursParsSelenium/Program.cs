@@ -35,14 +35,47 @@ namespace KursParsSelenium
             IWebElement CityInput = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("suggest")));
             CityInput.Clear();
             CityInput.SendKeys(user.UserCity);
-            IWebElement CityInputChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[normalize-space(text())='Калининград,']")));
+            IWebElement CityInputChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath($"//span[normalize-space(text())='{user.UserCity}']")));
             System.Threading.Thread.Sleep(5000);
 
+            
+            
             IWebElement ArrivalDate = wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("search-widget-field--occupied__in")));
             ArrivalDate.Click();
             System.Threading.Thread.Sleep(5000);
-            IWebElement ArrivalDateChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"td[data-cy-date='{user.UserArrivalDate}']")));
-            ArrivalDateChoice.Click();
+
+            int MaxAttempts = 10;
+            bool found = false;
+            int attempt = 0;
+            while (!found && attempt < MaxAttempts)
+            {
+                var ArrivalDateChoice = driver.FindElements(By.CssSelector($"td[data-cy-date='{user.UserArrivalDate}']"));
+                if (ArrivalDateChoice.Count() > 0)
+                {
+                    ArrivalDateChoice[0].Click();
+                    found = true;
+                }
+                else
+                {
+                    var NextButtonsCalendar = driver.FindElements(By.CssSelector(".sc-datepickerext-wrapper-next"));
+                    if (NextButtonsCalendar.Count() == 0)
+                    {
+                        break;
+                    }
+                    NextButtonsCalendar[0].Click();
+                    Thread.Sleep(1000);
+                }
+                attempt++;
+                //IWebElement ArrivalDateChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"td[data-cy-date='{user.UserArrivalDate}']")));
+                //ArrivalDateChoice.Click();
+            }
+            if (found == true)
+            {
+                Console.WriteLine("Дата заезда была найдена!");
+            }
+            else { Console.WriteLine("Дата заезда не найдена, введите другую дату"); }
+
+
 
             System.Threading.Thread.Sleep(5000);
 
@@ -323,6 +356,7 @@ namespace KursParsSelenium
                 //case 4:
                     // listings.Sort((a, b) => a.Price.CompareTo(b.Price)); ДОДЕЛАТЬ !!!!
             }
+
 
 
             int num = 0;
