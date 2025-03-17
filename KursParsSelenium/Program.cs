@@ -11,6 +11,7 @@ using SeleniumExtras.WaitHelpers;
 using static OpenQA.Selenium.BiDi.Modules.Session.ProxyConfiguration;
 using System.Diagnostics;
 using System.Security.Policy; // Открываем ссылки в браузере по умолчанию
+using System.Globalization;
 
 
 
@@ -44,43 +45,20 @@ namespace KursParsSelenium
             ArrivalDate.Click();
             System.Threading.Thread.Sleep(5000);
 
-            int MaxAttempts = 10;
-            bool found = false;
-            int attempt = 0;
-            while (!found && attempt < MaxAttempts)
-            {
-                var ArrivalDateChoice = driver.FindElements(By.CssSelector($"td[data-cy-date='{user.UserArrivalDate}']"));
-                if (ArrivalDateChoice.Count() > 0)
-                {
-                    ArrivalDateChoice[0].Click();
-                    found = true;
-                }
-                else
-                {
-                    var NextButtonsCalendar = driver.FindElements(By.CssSelector(".sc-datepickerext-wrapper-next"));
-                    if (NextButtonsCalendar.Count() == 0)
-                    {
-                        break;
-                    }
-                    NextButtonsCalendar[0].Click();
-                    Thread.Sleep(1000);
-                }
-                attempt++;
-                //IWebElement ArrivalDateChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"td[data-cy-date='{user.UserArrivalDate}']")));
-                //ArrivalDateChoice.Click();
-            }
-            if (found == true)
+
+            if (user.FindDate(driver, user.UserArrivalDate))
             {
                 Console.WriteLine("Дата заезда была найдена!");
+            }
+            else { Console.WriteLine("Дата заезда не найдена, введите другую дату"); }  
+
+            if (user.FindDate(driver, user.UserDepartureDate)) 
+            { 
+                Console.WriteLine("Дата заезда была найдена!"); 
             }
             else { Console.WriteLine("Дата заезда не найдена, введите другую дату"); }
 
 
-
-            System.Threading.Thread.Sleep(5000);
-
-            IWebElement DepartureDateChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"td[data-cy-date='{user.UserDepartureDate}']")));
-            DepartureDateChoice.Click();
 
             System.Threading.Thread.Sleep(5000);
 
@@ -187,7 +165,7 @@ namespace KursParsSelenium
                     CountOfReviews = 0;
                 }
 
-                //CountOfReviews = user.GetCountOfReviews(ReviewElements[0].Text);
+
 
                 IWebElement linkElement = card.FindElement(By.CssSelector("a.card-content"));
                 string partialHref = linkElement.GetAttribute("href");
@@ -337,7 +315,7 @@ namespace KursParsSelenium
             //    Console.WriteLine($"Название отеля: {item.Title} Оценка отеля: {item.Rating}, Количество оценок: {item.ReviewsCount} Цена за всё время проживания: {item.Price}");
             //}
             Console.WriteLine($"Недвижимость была найдена! Всего {listings.Count()} объектов");
-            Console.WriteLine($"Выберите метод сортировки(цифра) на выбор:\n1.По цене\n2.По рейтингу\n3.По кол-ву отзывов\n4.Цена/качество");
+            Console.WriteLine($"Выберите метод сортировки(цифра) на выбор:\n1.По цене\n2.По рейтингу\n3.По кол-ву отзывов\n4.Цена/качество(больше - лучше)");
             int SortChoice = Convert.ToInt32(Console.ReadLine());
 
             listings.RemoveAll(item => item.Rating == "Рейтинг отсутствует" || item.ReviewsCount < 15);
@@ -353,8 +331,9 @@ namespace KursParsSelenium
                 case 3:
                     listings.Sort((a, b) => a.ReviewsCount.CompareTo(b.ReviewsCount));
                     break;
-                //case 4:
-                    // listings.Sort((a, b) => a.Price.CompareTo(b.Price)); ДОДЕЛАТЬ !!!!
+                case 4:
+                    listings.Sort((a, b) => (b.PriceQualityRatio).CompareTo(a.PriceQualityRatio));
+                    break;
             }
 
 
@@ -363,7 +342,7 @@ namespace KursParsSelenium
             foreach (var item in listings)
             {
                 num += 1;
-                Console.WriteLine($"{num}.Название отеля: {item.Title} Оценка отеля: {item.Rating}, Количество оценок: {item.ReviewsCount} Цена за всё время проживания: {item.Price}, Ссылка: {item.Link}");
+                Console.WriteLine($"{num}.Название отеля: {item.Title} Оценка отеля: {item.Rating}, Количество оценок: {item.ReviewsCount} Цена за всё время проживания: {item.Price}, Коэф. цена/качества: {item.PriceQualityRatio},Ссылка: {item.Link}");
             }
             Console.WriteLine("Выбрав номер объекта, вы можете перейти на официальную страницу для бронирования");
             while (true)
