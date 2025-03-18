@@ -18,7 +18,15 @@ namespace KursParsSelenium
     public class SeleniumService {
         public List<ListingInfo> Run(UserInfo user)
         {
-            IWebDriver driver = new ChromeDriver();
+            var service = ChromeDriverService.CreateDefaultService(); // создвем сервис
+            service.SuppressInitialDiagnosticInformation = true; // Подавляем нач. Диагностич. Информ.
+            service.HideCommandPromptWindow = true; // Скрытие консольного окна для WebDriver, когда драйвер попытается открыть консоль для ввода логов
+            // Отключаем логи, а точнее, создаем файл, куда будут выводиться удавшимся просочиться логам
+            // service.LogPath = "chromedriver.log";
+            //service.EnableAppendLog = false; // true = перезапись логов в конец файла, false перезаписывать
+
+
+            IWebDriver driver = new ChromeDriver(service);
             driver.Navigate().GoToUrl("https://sutochno.ru/");
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));

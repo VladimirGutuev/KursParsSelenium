@@ -83,7 +83,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Helpers\ListingProcessor.cs" />
     <Compile Include="Models\ListingInfo.cs" />
     <Compile Include="Program.cs" />
