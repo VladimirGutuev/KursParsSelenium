@@ -1,10 +1,5 @@
-﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
+
 
 namespace KursParsSelenium
 {
@@ -70,58 +65,5 @@ namespace KursParsSelenium
                 return false;
             }
         }
-        //public int GetCountOfReviews(string ReviewsText)
-        //{
-        //    int Reviews;
-
-        //    var parts = ReviewsText.Split(' ');
-        //    Reviews = int.Parse(parts[0]);
-        //    return Reviews;
-        //}
-        //public int GetPrice(string PriceTextWithSpace)
-        //{
-        //    int Price;
-        //    string PriceText = "";
-        //    var parts = PriceTextWithSpace.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-        //    for (int i = 0; i < parts.Count(); i++)
-        //    {
-        //        if (parts[i] == "₽") { break; }
-        //        else
-        //        {
-        //            PriceText += (parts[i]);
-        //        }
-        //    }
-        //    Price = int.Parse(PriceText);
-        //    return Price;
-        //}
-        //public bool FindDate(IWebDriver driver, string date)
-        //{
-        //    int MaxAttempts = 10;
-        //    bool found = false;
-        //    int attempt = 0;
-        //    while (!found && attempt < MaxAttempts)
-        //    {
-        //        var ArrivalDateChoice = driver.FindElements(By.CssSelector($"td[data-cy-date='{date}']"));
-        //        if (ArrivalDateChoice.Count() > 0)
-        //        {
-        //            ArrivalDateChoice[0].Click();
-        //            found = true;
-        //        }
-        //        else
-        //        {
-        //            var NextButtonsCalendar = driver.FindElements(By.CssSelector(".sc-datepickerext-wrapper-next"));
-        //            if (NextButtonsCalendar.Count() == 0)
-        //            {
-        //                break;
-        //            }
-        //            NextButtonsCalendar[0].Click();
-        //            Thread.Sleep(1000);
-        //        }
-        //        attempt++;
-        //        //IWebElement ArrivalDateChoice = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector($"td[data-cy-date='{user.UserArrivalDate}']")));
-        //        //ArrivalDateChoice.Click();
-        //    }
-        //    return found;
-        //}
     }
 }

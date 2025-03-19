@@ -1,21 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using static OpenQA.Selenium.BiDi.Modules.Session.ProxyConfiguration;
-using System.Diagnostics;
-using System.Security.Policy; // Открываем ссылки в браузере по умолчанию
-using System.Globalization;
-
-
-
-
 
 namespace KursParsSelenium
 {
