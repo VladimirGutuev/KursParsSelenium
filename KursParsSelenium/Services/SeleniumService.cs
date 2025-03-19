@@ -41,7 +41,7 @@ namespace KursParsSelenium
 
             IWebElement ArrivalDate = wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("search-widget-field--occupied__in")));
             ArrivalDate.Click();
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(1500);
 
 
             if (FindDate(driver, user.UserArrivalDate))
@@ -58,54 +58,54 @@ namespace KursParsSelenium
 
 
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(500);
 
             IWebElement SearchButton = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"root\"]/div[1]/div[2]/div[1]/div[2]/div/div[3]/button")));
             SearchButton.Click();
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(1500);
 
             IWebElement Quality = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"searchParams\"]/div[1]/div[3]/button[1]/span")));
             Quality.Click();
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(1500);
 
             IWebElement PriceOfAllTime = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"searchParams\"]/div[2]/div/div/div[1]/div/div[1]/div/div/ul/li[2]")));
             PriceOfAllTime.Click();
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(200);
 
             IWebElement PriceMinInput = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"searchParams\"]/div[2]/div/div/div[1]/div/div[2]/div/div[1]/div/span[1]/input")));
             PriceMinInput.Click();
             PriceMinInput.Clear();
             PriceMinInput.SendKeys(Convert.ToString(user.UserMinCost));
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(200);
 
             IWebElement PriceMaxInput = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"searchParams\"]/div[2]/div/div/div[1]/div/div[2]/div/div[1]/div/span[3]/input")));
             PriceMaxInput.Clear();
             PriceMaxInput.SendKeys(Convert.ToString(user.UserMaxCost));
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(2000);
             IWebElement ApplyPriceInput = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"searchParams\"]/div[2]/div/div/div[2]/button[2]")));
             ApplyPriceInput.Click();
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(1500);
             IWebElement ChoosePriceQuality = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"root\"]/div[1]/div[2]/div[4]/div[1]/div[2]/div/div[2]/button[2]")));
             ChoosePriceQuality.Click();
 
 
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(500);
 
             ScrollDown(driver);
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(500);
 
 
             var listings = CollectListings(driver, wait, user);
     
 
-        System.Threading.Thread.Sleep(5000);
+        System.Threading.Thread.Sleep(500);
             var nextbuttons = driver.FindElements(By.CssSelector(".navigation"));
             if (nextbuttons.Count() == 1) { nextbuttons[0].Click(); Thread.Sleep(2000); ScrollDown(driver); }
             
@@ -118,11 +118,11 @@ namespace KursParsSelenium
                     break;
                 }
 
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(500);
 
                 listings.AddRange(CollectListings(driver, wait, user));
 
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(500);
                 nextbuttons = driver.FindElements(By.CssSelector(".navigation"));
                 if (nextbuttons.Count() == 1 || nextbuttons.Count() == 0)
                 {
@@ -149,7 +149,7 @@ namespace KursParsSelenium
 
                 // Прокручиваем вниз на 500 пикселей
                 js.ExecuteScript("window.scrollBy(0, 500);");
-                Thread.Sleep(1000); // небольшая пауза, чтобы страница успела отрисоваться
+                Thread.Sleep(1200); // небольшая пауза, чтобы страница успела отрисоваться
 
                 // Получаем текущее положение прокрутки (сколько пикселей от верха)
                 long newOffset = (long)js.ExecuteScript("return window.pageYOffset;");
@@ -172,7 +172,7 @@ namespace KursParsSelenium
         {
             var listings = new List<ListingInfo>();
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
             var cards = wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector(".card-list__item")));
 
 

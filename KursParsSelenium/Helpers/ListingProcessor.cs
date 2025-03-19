@@ -41,7 +41,7 @@ namespace KursParsSelenium
                     $"Кол-во отзывов: {item.ReviewsCount}, " +
                     $"Цена: {item.Price}, " +
                     $"Коэф. цена/качества: {item.PriceQualityRatio}, " +
-                    $"Ссылка: {item.Link}");
+                    //$"Ссылка: {item.Link}");
             }
 
             Console.WriteLine("Выбрав номер объекта, вы можете перейти на официальную страницу для бронирования");
