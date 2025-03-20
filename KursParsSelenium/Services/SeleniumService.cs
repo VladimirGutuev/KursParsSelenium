@@ -18,7 +18,7 @@ namespace KursParsSelenium
             service.HideCommandPromptWindow = true; // Скрытие консольного окна для WebDriver, когда драйвер попытается открыть консоль для ввода логов
             // Отключаем логи, а точнее, создаем файл, куда будут выводиться удавшимся просочиться логам
             // service.LogPath = "chromedriver.log";
-            //service.EnableAppendLog = false; // true = перезапись логов в конец файла, false перезаписывать
+            // service.EnableAppendLog = false; // true = перезапись логов в конец файла, false перезаписывать
 
 
             IWebDriver driver = new ChromeDriver(service);

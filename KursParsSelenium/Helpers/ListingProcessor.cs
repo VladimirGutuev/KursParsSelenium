@@ -40,7 +40,7 @@ namespace KursParsSelenium
                     $"Оценка: {item.Rating}, " +
                     $"Кол-во отзывов: {item.ReviewsCount}, " +
                     $"Цена: {item.Price}, " +
-                    $"Коэф. цена/качества: {item.PriceQualityRatio}, " +
+                    $"Коэф. цена/качества: {item.PriceQualityRatio}, "); //+
                     //$"Ссылка: {item.Link}");
             }
 
